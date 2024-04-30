@@ -1,3 +1,10 @@
+"""
+Python web scrapper based on page elements
+Version 1:00
+Author: Elijah Abolaji
+Mail: tyabolaji@gmail.com
+"""
+
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
