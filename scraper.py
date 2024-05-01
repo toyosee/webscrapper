@@ -1,19 +1,12 @@
-"""
-Python web scrapper based on page elements
-Version 1:00
-Author: Elijah Abolaji
-Mail: tyabolaji@gmail.com
-"""
-
 import tkinter as tk
 from tkinter import ttk
+from ttkthemes import ThemedTk
 from tkinter import messagebox
 import json
 import csv
 
 import requests
 from bs4 import BeautifulSoup
-import html
 
 domain = "https://"
 
@@ -131,17 +124,28 @@ def export_data():
         messagebox.showerror("Error", f"Error exporting data: {str(e)}")
 
 
+def shorten_url():
+    # Implement your URL shortener logic here
+    pass
+
+
 # Create the main application window
 root = tk.Tk()
 logo_image = tk.PhotoImage(file="toyotech.png")
 root.iconphoto(False, logo_image)
 root.title("Scraper")
-root.geometry("500x900")  # Set an appropriate window size
+root.geometry("500x800")  # Set an appropriate window size
 
-# Title label with logo
-# title_label = tk.Label(root, text="Web Scraper", font=("Helvetica", 10, "bold"))
-# title_label.pack(pady=3)
+# # Create a canvas with a vertical scrollbar
+# canvas = tk.Canvas(root)
+# scrollbar = ttk.Scrollbar(root, orient="vertical", command=canvas.yview)
+# root = ttk.root(canvas)
 
+# # Configure canvas scrolling
+# canvas.configure(yscrollcommand=scrollbar.set)
+# canvas.pack(side="left", fill="both", expand=True)
+# scrollbar.pack(side="right", fill="y")
+# canvas.create_window((0, 0), window=root, anchor="")
 
 # URL input
 url_label = tk.Label(root, text="Enter URL:")
@@ -162,6 +166,11 @@ specific_button.pack()
 element_label = tk.Label(root, text="Select Element Type:")
 element_label.pack()
 
+# Style the dropdown
+style = ttk.Style()
+style.configure("TCombobox", padding=5, font=("Helvetica", 12))  # Customize font and padding
+style.map("TCombobox", fieldbackground=[("readonly", "white")])
+
 element_types = ["all", "body", "div", "p", "h1", "h2", "h3", "h4", "h4 a", "h5", "h6", "span", "a", "ul"]  # Customize this list as needed
 element_dropdown = ttk.Combobox(root, values=element_types)
 element_dropdown.pack()
@@ -174,8 +183,12 @@ class_entry = tk.Entry(root, width=50)
 class_entry.pack()
 
 # Scrape Data button
-scrape_button = tk.Button(root, text="Scrape Data",pady="3", borderwidth=3, command=scrape_data)
+scrape_button = tk.Button(root, text="Scrape Data", pady="3", borderwidth=3, command=scrape_data)
 scrape_button.pack()
+
+# Horizontal rule
+hr = ttk.Separator(root, orient='horizontal')
+hr.pack(fill='x')
 
 # Display scraped data
 data_text = tk.Text(root, height=20, width=50)
@@ -192,6 +205,7 @@ export_dropdown.pack()
 # Export Data button
 export_button = tk.Button(root, text="Export Data", pady="3", borderwidth=3, command=export_data)
 export_button.pack()
+
 
 # Exit button
 exit_button = tk.Button(root, text="Exit", pady="3", borderwidth=3, command=root.destroy)
