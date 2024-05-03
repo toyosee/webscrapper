@@ -1,3 +1,10 @@
+"""
+Application : Web Scrapper
+Author: Elijah Abolaji
+Version: 1.0.0
+"""
+
+# Importing Libraries for the application
 import tkinter as tk
 from tkinter import ttk
 from ttkthemes import ThemedTk
@@ -136,17 +143,6 @@ root.iconphoto(False, logo_image)
 root.title("Scraper")
 root.geometry("500x800")  # Set an appropriate window size
 
-# # Create a canvas with a vertical scrollbar
-# canvas = tk.Canvas(root)
-# scrollbar = ttk.Scrollbar(root, orient="vertical", command=canvas.yview)
-# root = ttk.root(canvas)
-
-# # Configure canvas scrolling
-# canvas.configure(yscrollcommand=scrollbar.set)
-# canvas.pack(side="left", fill="both", expand=True)
-# scrollbar.pack(side="right", fill="y")
-# canvas.create_window((0, 0), window=root, anchor="")
-
 # URL input
 url_label = tk.Label(root, text="Enter URL:")
 url_label.pack()
@@ -171,7 +167,7 @@ style = ttk.Style()
 style.configure("TCombobox", padding=5, font=("Helvetica", 12))  # Customize font and padding
 style.map("TCombobox", fieldbackground=[("readonly", "white")])
 
-element_types = ["all", "body", "div", "p", "h1", "h2", "h3", "h4", "h4 a", "h5", "h6", "span", "a", "ul"]  # Customize this list as needed
+element_types = ["all", "body", "div", "p", "h1", "h2", "h3", "h4", "h4 a", "h5", "h6", "span", "a", "ul", "pre"]  # Customize this list as needed
 element_dropdown = ttk.Combobox(root, values=element_types)
 element_dropdown.pack()
 
