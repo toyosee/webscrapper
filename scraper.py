@@ -17,7 +17,7 @@ from bs4 import BeautifulSoup
 
 domain = "https://"
 
-
+# Checks and validates url protocols.
 def validate_url(url):
     if url.startswith("http://") or url.startswith("https://"):
         return url
@@ -131,9 +131,9 @@ def export_data():
         messagebox.showerror("Error", f"Error exporting data: {str(e)}")
 
 
-def shorten_url():
-    # Implement your URL shortener logic here
-    pass
+# def shorten_url():
+#     # Implement your URL shortener logic here
+#     pass
 
 
 # Create the main application window
@@ -142,6 +142,17 @@ logo_image = tk.PhotoImage(file="toyotech.png")
 root.iconphoto(False, logo_image)
 root.title("Scraper")
 root.geometry("500x800")  # Set an appropriate window size
+
+# # Setting background image
+# bg_img =tk.PhotoImage(file="bg.jpg")
+
+# # Create Canvas 
+# canvas1 = Canvas( root, width = 500, height = 800) 
+  
+# canvas1.pack(fill = "both", expand = True) 
+  
+# # Display image 
+# canvas1.create_image( 0, 0, image = bg_img,  anchor = "nw") 
 
 # URL input
 url_label = tk.Label(root, text="Enter URL:")
