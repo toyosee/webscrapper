@@ -4,47 +4,46 @@ Author: Elijah Abolaji
 Version: 1.0.0
 """
 
-import os
-import io
 import tkinter as tk
 from tkinter import filedialog, messagebox, ttk
+import io
 import pygame as pg
 from gtts import gTTS, lang
 import threading
 
-# Function to display error message in message box
 def show_error_message(error_message):
     messagebox.showerror("Error", error_message)
 
-# Function to display message after conversion and download
 def show_info_message(message):
     messagebox.showinfo("Conversion Done", message)
 
 def speak(text, language, accent, filename=None):
-    # Function to update progress
     def update_progress(progress):
         progress_bar['value'] = progress
-        if progress >= 100:
-            progress_dialog.destroy()
-            if filename:
-                show_info_message("Conversion and save operation completed successfully!")
 
-    # Generating speech
+    def finish_progress():
+        progress_dialog.destroy()
+        if filename:
+            show_info_message("Conversion and save operation completed successfully!")
+
     progress_dialog = tk.Toplevel(root)
     progress_dialog.title("Converting...")
     progress_dialog.geometry("300x50")
     progress_label = tk.Label(progress_dialog, text="Converting text to speech. Please wait...")
     progress_label.pack(pady=5)
-    progress_bar = ttk.Progressbar(progress_dialog, orient="horizontal", length=200, mode="determinate")
+    progress_bar = ttk.Progressbar(progress_dialog, orient="horizontal", length=200, mode="indeterminate")
     progress_bar.pack(pady=5)
-    
+    progress_bar.start()
+
     try:
         tts = gTTS(text=text, lang=language, tld=accent, slow=False)
+        total_length = len(text.split())
+        current_progress = 0
+        step = 100 / total_length
         if filename:
             tts.save(filename)
-            update_progress(100)
+            finish_progress()
         else:
-            # Playing audio
             with io.BytesIO() as file:
                 tts.write_to_fp(file)
                 file.seek(0)
@@ -52,8 +51,10 @@ def speak(text, language, accent, filename=None):
                 pg.mixer.music.load(file)
                 pg.mixer.music.play()
                 while pg.mixer.music.get_busy():
+                    current_progress += step
+                    update_progress(current_progress)
                     continue
-                update_progress(100)
+                finish_progress()
     except ValueError as e:
         progress_dialog.destroy()
         show_error_message(str(e))
@@ -84,7 +85,6 @@ def upload_file():
             text_entry.delete("1.0", tk.END)
             text_entry.insert(tk.END, file_content)
 
-# Function to exit the application
 def exit_application():
     root.destroy()
 
@@ -134,7 +134,6 @@ accent_dropdown = tk.OptionMenu(root, accent_variable, "com.au", "com.uk", "com.
 accent_variable.set("com.au")  # Default accent is Australian English
 accent_dropdown.pack(padx=5, pady=5)
 
-# Exit button
 exit_button = tk.Button(root, text="Exit", command=exit_application)
 exit_button.pack(pady=5)
 
