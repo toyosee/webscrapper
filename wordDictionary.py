@@ -2,27 +2,28 @@ import tkinter as tk
 from tkinter import messagebox
 from tkinter import ttk
 from PyDictionary import PyDictionary
+from PyMultiDictionary import MultiDictionary
 import json
 
-dictionary = PyDictionary()
+dictionary = MultiDictionary()
 
 def search_word():
     word = word_entry.get()
     try:
-        meaning = dictionary.meaning(word)
+        meaning = dictionary.meaning("en", word)
         meaning_text.delete(1.0, tk.END)  # Clear previous text
         if meaning:
-            meaning_text.insert(tk.END, f"{word.upper()}\n- Meaning:\n{meaning}\n\n")
-            synonyms = dictionary.synonym(word)
-            antonyms = dictionary.antonym(word)
+            meaning_text.insert(tk.END, f"{word.upper()}\n- Meaning:\n{meaning[1]}\n\n")
+            synonyms = dictionary.synonym("en",word)
+            antonyms = dictionary.antonym("en",word)
             if synonyms:
                 meaning_text.insert(tk.END, f"Synonyms: {', '.join(synonyms)}\n")
             if antonyms:
                 meaning_text.insert(tk.END, f"Antonyms: {', '.join(antonyms)}\n")
             
             # Example of usage
-            example = dictionary.meaning(word).popitem()[1][0]
-            meaning_text.insert(tk.END, f"\nExample: {example}")
+            # example = dictionary.meaning("en", word)
+            # meaning_text.insert(tk.END, f"\nExample: {example}")
         else:
             messagebox.showinfo("No Result", f"No result found for the given word.\nEnter a word or check your internet connection")
     except Exception as e:
