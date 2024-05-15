@@ -4,14 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <style>
+        /* Using Element as selector */
+        h1 {color: rgb(99, 70, 5);}
+
+        /* using a class as selector */
+        .dave{
+            background: tomato;
+            font-size: 30px;
+            font-weight: bolder;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            border: 10px solid green;
+            border-radius: 40px;
+        }
+
+        .bolu{background: yellow;}
+
+        /* using ID as selector */
+        #dave{background: grey;}
+
+    </style>
+    <link rel="stylesheet" href="">
 </head>
 <body>
+
+    <h1>My first page</h1>
     <!-- <p title="Yes i am active">This is a paragraph.</p>  -->
-    <p>Do not forget to buy <mark>milk</mark> today.</p>
+    <p class="dave bolu" id="dave">Do not forget to buy <mark>milk</mark> today.</p>
     <p>My favorite color is <del>blue</del> red.</p>
     <p>My favorite color is <del>blue</del> <ins>red</ins>.</p>
-    <p>This is <sub>subscripted</sub> text.</p>
-    <p>This is <sup>superscripted</sup> text.</p>
+    <p>This is <sub class="dave" id="appear">Na Me Go Change</sub> text.</p>
+    <p>This is <sup class="bolu">superscripted</sup> text.</p>
     <div>
         <p>Here is a quote from WWF's website:</p>
         <blockquote cite="http://www.worldwildlife.org/who/index.html">
@@ -19,15 +43,40 @@
         </blockquote> 
     </div>
     <p>WWF's goal is to: <q>Build a future where people live in harmony with nature.</q></p> 
-    <p>The <abbr title="World Health Organization">WHO</abbr> was founded in 1948.</p> 
+    <p>The <abbr title="World Health Organization" class="dave">WHO</abbr> was founded in 1948.</p> 
 
-    <address>
+    <address class="bolu">
         Written by John Doe.<br>
         Visit us at:<br>
         Example.com<br>
         Box 564, Disneyland<br>
         USA
-        </address> 
+    </address> 
     <bdo dir="ltr">This text will be written from right to left</bdo> 
+
+    <div>
+        First Name: <input type="text" id="inp1">
+        <button onclick="changer()">Port</button>
+        <!-- <input type="button" value="Click Me"> -->
+    </div>
+
+    <!-- footer section begins from here -->
+    <div>
+
+    </div>
+
+    <script>
+
+        // Bringing values to JS
+        const Display = document.getElementById("appear")
+        const Input = document.getElementById("inp1")
+
+        // Function to trigger button and change text
+        function changer(){
+            let incoming = Input.value
+            Display.innerHTML = incoming
+            // console.log(incoming)
+        }
+    </script>
 </body>
 </html>
